@@ -1,6 +1,6 @@
 # google-maps-autopilot
 
-A library that randomly selects cities and navigates to them — zooming in, zooming out, then choosing a new random city and repeating.
+A library that randomly selects cities and navigates to them — zooming in, zooming out, then, choosing a new random city: repeats.
 
 ### Installation
 
