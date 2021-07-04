@@ -16,7 +16,7 @@ export const zoom = async (
     async (promise: Promise<unknown | void>, zoomLevel) => {
       await promise;
       setZoom(map, zoomLevel);
-      return wait(rand(50, 5000));
+      return wait(rand(minWait, maxWait));
     },
     Promise.resolve()
   );
