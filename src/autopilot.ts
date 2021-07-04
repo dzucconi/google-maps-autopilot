@@ -2,12 +2,16 @@ import { range, wait } from "./util";
 import { rand, randomCity } from "./random";
 import { path } from "./coordinates";
 
-const MIN_ZOOM_LEVEL = 4;
-const MAX_ZOOM_LEVEL = 16;
+export const MIN_ZOOM_LEVEL = 4;
+export const MAX_ZOOM_LEVEL = 16;
+export const ZOOM_LEVELS = range(MIN_ZOOM_LEVEL, MAX_ZOOM_LEVEL, 1);
 
-const ZOOM_LEVELS = range(MIN_ZOOM_LEVEL, MAX_ZOOM_LEVEL, 1);
-
-const zoom = async (zoomLevels: number[], map: google.maps.Map) => {
+export const zoom = async (
+  map: google.maps.Map,
+  zoomLevels: number[],
+  minWait = 50,
+  maxWait = 5000
+) => {
   return zoomLevels.reduce(
     async (promise: Promise<unknown | void>, zoomLevel) => {
       await promise;
@@ -18,15 +22,23 @@ const zoom = async (zoomLevels: number[], map: google.maps.Map) => {
   );
 };
 
-const zoomIn = async (map: google.maps.Map) => {
-  await zoom(ZOOM_LEVELS, map);
+export const zoomIn = async (
+  map: google.maps.Map,
+  minWait = 50,
+  maxWait = 5000
+) => {
+  await zoom(map, ZOOM_LEVELS, minWait, maxWait);
 };
 
-const zoomOut = async (map: google.maps.Map) => {
-  await zoom([...ZOOM_LEVELS].reverse(), map);
+export const zoomOut = async (
+  map: google.maps.Map,
+  minWait = 50,
+  maxWait = 5000
+) => {
+  await zoom(map, [...ZOOM_LEVELS].reverse(), minWait, maxWait);
 };
 
-const setZoom = (map: google.maps.Map, zoomLevel: number) => {
+export const setZoom = (map: google.maps.Map, zoomLevel: number) => {
   try {
     map.setZoom(zoomLevel);
   } catch (error) {
@@ -34,7 +46,10 @@ const setZoom = (map: google.maps.Map, zoomLevel: number) => {
   }
 };
 
-const panTo = (map: google.maps.Map, coord: google.maps.LatLngLiteral) => {
+export const panTo = (
+  map: google.maps.Map,
+  coord: google.maps.LatLngLiteral
+) => {
   try {
     map.panTo(coord);
   } catch (error) {
